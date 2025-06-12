@@ -245,27 +245,11 @@ spec:
           webhookSecret: pipelines-secret
           webhookSecretKey: webhook.secret
           defaultBranch: main
-          initContainer: quay.io/redhat-ai-dev/granite-3.1-8b-instruct-gguf:latest
-          modelInitCommand: "['/usr/bin/install', '/model/model.file', '/shared/']"
-          modelPath: "/model/model.file"
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else 'quay.io/redhat-ai-dev/chatbot:latest' }}
           appPort: 8501
-          modelServiceContainer: quay.io/redhat-ai-dev/llamacpp_python:0.3.8
-          modelServicePort: 8001
-          # SED_LLM_SERVER_START
-          # for vllm
-          vllmSelected: ${{ parameters.modelServer === 'vLLM' }}
-          vllmModelServiceContainer: quay.io/redhat-ai-dev/vllm-openai-ubi9:v0.8.4
-          modelName: ${{ parameters.modelName if parameters.modelServer === 'Existing model server' else 'ibm-granite/granite-3.1-8b-instruct' }}
-          maxModelLength: 4096
-          existingModelServer: true
           modelEndpoint: ${{ parameters.modelEndpoint }}
           rhoaiSelected: ${{ parameters.rhoaiSelected }}
-          # SED_APP_SUPPORT_END
           supportApp: true
-          modelServerName: ${{ parameters.modelServer }}
-          modelServiceSrcVLLM: https://github.com/redhat-ai-dev/developer-images/tree/main/model-servers/vllm/0.8.4
-          modelServiceSrcOther: https://github.com/redhat-ai-dev/developer-images/tree/main/model-servers/llamacpp_python/0.3.8
           imageRegistry: ${{ parameters.imageRegistry }}
           imageOrg: ${{ parameters.imageOrg }}
           imageName: ${{ parameters.imageName }}
