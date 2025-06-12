@@ -49,6 +49,9 @@ class ToolManager:
         """
         sends message to an Agent instance
         """
+        if not self.agent:
+            self.connect()
+
         response = self.agent.create_turn(
             session_id=self.session_id,
             messages=[{"role": "user", "content": message}],
