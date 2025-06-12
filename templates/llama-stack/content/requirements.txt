@@ -1,2 +1,3 @@
 pydantic_ai
 streamlit
+llama_stack
