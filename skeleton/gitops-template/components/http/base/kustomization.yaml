@@ -10,13 +10,13 @@ resources:
   - initialize-namespace/
   {%- if not values.llamaStackServerOnly %}
   - deployment.yaml
-  - route.yaml
   - model-config.yaml
   {%- else %}
   - llama-stack-deployment.yaml
   - pvc.yaml
   {%- endif %}
   - service.yaml
+  - route.yaml
   {%- if values.rhoaiSelected %}
   - rhoai/
   {%- endif %}
