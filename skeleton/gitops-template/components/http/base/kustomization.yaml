@@ -15,9 +15,18 @@ resources:
   {%- else %}
   - llama-stack-deployment.yaml
   - pvc.yaml
-  - llama-stack-run.yaml
   {%- endif %}
   - service.yaml
   {%- if values.rhoaiSelected %}
   - rhoai/
   {%- endif %}
+
+{%- if values.llamaStackServerOnly %}
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: run-config
+    files:
+      - config.yaml=llama-stack-run.yaml
+{%- endif %}
