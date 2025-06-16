@@ -41,10 +41,6 @@ spec:
         ollamaHostname:
           title: Ollama Hostname
           type: string
-          ui:help: "The hostname of the Ollama instance."
-        ollamaHostname:
-          title: Ollama Hostname
-          type: string
           default: llama3.1:8b
           ui:help: "The hostname of the Ollama instance."
           ollamaInferenceModelName: ${{ parameters.ollamaHostname }}
