@@ -59,6 +59,8 @@ spec:
               value: milvus.db
             - name: LLAMA_STACK_LOGGING
               value: all=debug
+            - name: INFERENCE_MODEL
+              value: llama3.1:8b
             - name: OLLAMA_URL
               value: ${{  values.ollamaHostname  }}
             - name: OLLAMA_API_TOKEN
