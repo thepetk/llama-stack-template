@@ -43,7 +43,6 @@ spec:
           type: string
           default: llama3.1:8b
           ui:help: "The hostname of the Ollama instance."
-          ollamaInferenceModelName: ${{ parameters.ollamaHostname }}
         includeOllamaAPISecret:
           title: Is Ollama API key required?
           type: boolean
