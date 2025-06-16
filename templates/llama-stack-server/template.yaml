@@ -42,6 +42,12 @@ spec:
           title: Ollama Hostname
           type: string
           ui:help: "The hostname of the Ollama instance."
+        ollamaHostname:
+          title: Ollama Hostname
+          type: string
+          default: llama3.1:8b
+          ui:help: "The hostname of the Ollama instance."
+          ollamaInferenceModelName: ${{ parameters.ollamaHostname }}
         includeOllamaAPISecret:
           title: Is Ollama API key required?
           type: boolean
@@ -273,6 +279,7 @@ spec:
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else 'quay.io/redhat-ai-dev/chatbot:latest' }}
           appPort: 8501
           ollamaHostname: ${{ parameters.ollamaHostname }}
+          ollamaInferenceModelName: ${{ parameters.ollamaHostname }}
           includeOllamaAPISecret: ${{ parameters.includeOllamaAPISecret }}
           ollamaApiSecretName: ${{ parameters.ollamaApiSecretName }}
           ollamaApiSecretKey: ${{ parameters.ollamaApiSecretKey }}

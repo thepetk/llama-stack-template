@@ -17,7 +17,7 @@ spec:
       required:
         - name
         - owner
-        - modelEndpoint
+        - llamaStackServiceUrl
       properties:
         name:
           title: Name
@@ -38,10 +38,35 @@ spec:
             catalogFilter:
               kind: [Group, User]
               readonly: false
-        modelEndpoint:
-          title: Model Endpoint
+        llamaStackServiceUrl:
+          title: Llama-Stack Service URL
           type: string
           ui:help: "The endpoint to the existing llama-stack service."
+        includeLlamaStackSecret:
+          title: Is Llama-Stack API key required?
+          type: boolean
+          default: false
+          ui:help: Create a Secret containing the API key in the preferred targeted Namespace first.
+      dependencies:
+        includeLlamaStackSecret:
+          allOf:
+            - if:
+                properties:
+                  includeLlamaStackSecret:
+                    const: true
+              then:
+                properties:
+                  llamaStackSecretName:
+                    title: Llama-Stack Service API Key Secret Name
+                    type: string
+                    ui:help: "The name of the secret that includes the Llama-Stack Service API key"
+                  llamaStackSecretKey:
+                    title: Llama-Stack Service API Key Secret Key
+                    type: string
+                    ui:help: "The key of the secret that includes the Llama-Stack Service API key"
+                required:
+                  - llamaStackSecretName
+                  - llamaStackSecretKey
     - title: Application Repository Information
       required:
         - hostType
@@ -247,7 +272,10 @@ spec:
           defaultBranch: main
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else 'quay.io/redhat-ai-dev/chatbot:latest' }}
           appPort: 8501
-          modelEndpoint: ${{ parameters.modelEndpoint }}
+          llamaStackServiceUrl: ${{ parameters.llamaStackServiceUrl }}
+          includeLlamaStackSecret: ${{ parameters.includeLlamaStackSecret }}
+          llamaStackSecretName: ${{ parameters.llamaStackSecretName }}
+          llamaStackSecretKey: ${{ parameters.llamaStackSecretKey }}
           rhoaiSelected: ${{ parameters.rhoaiSelected }}
           supportApp: true
           llamaStackServerOnly: false
