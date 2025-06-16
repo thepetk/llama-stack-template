@@ -5,4 +5,4 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /chat/requirements.txt
 COPY llama_stack.py .
 EXPOSE 8501
-ENTRYPOINT [ "streamlit", "run", "llama_stack.py" ]
+ENTRYPOINT [ "streamlit", "run", "llama_stack_chatbot.py" ]
