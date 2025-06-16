@@ -41,8 +41,12 @@ spec:
         ollamaHostname:
           title: Ollama Hostname
           type: string
-          default: llama3.1:8b
           ui:help: "The hostname of the Ollama instance."
+        ollamaInferenceModelName:
+          title: Ollama Inference Model Name
+          type: string
+          default: llama3.1:8b
+          ui:help: "The ollama inference model name."
         includeOllamaAPISecret:
           title: Is Ollama API key required?
           type: boolean
