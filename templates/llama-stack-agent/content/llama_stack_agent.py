@@ -11,8 +11,10 @@ class ToolManager:
     def __init__(
         self,
         server_url: "str" = MODEL_SERVICE_URL,
+        api_key: "str" = MODEL_SERVICE_API_KEY,
     ) -> "None":
         self.server_url = server_url
+        self.api_key = api_key
         self.client = None
         self.agent = None
         self.model_identifier = None
@@ -24,7 +26,9 @@ class ToolManager:
         connects to a given llama-stack server
         """
         try:
-            self.client = LlamaStackClient(base_url=self.server_url)
+            self.client = LlamaStackClient(
+                base_url=self.server_url, api_key=self.api_key
+            )
             identifier = self.client.models.list()[0].identifier
 
             self.agent = Agent(
