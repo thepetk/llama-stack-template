@@ -17,7 +17,7 @@ spec:
       required:
         - name
         - owner
-        - modelEndpoint
+        - ollamaHostname
       properties:
         name:
           title: Name
@@ -38,10 +38,35 @@ spec:
             catalogFilter:
               kind: [Group, User]
               readonly: false
-        modelEndpoint:
-          title: Model Endpoint
+        ollamaHostname:
+          title: Ollama Hostname
           type: string
-          ui:help: "The endpoint to the existing llama-stack service."
+          ui:help: "The hostname of the Ollama instance."
+        includeOllamaAPISecret:
+          title: Is Ollama API key required?
+          type: boolean
+          default: false
+          ui:help: Create a Secret containing the API key in the preferred targeted Namespace first.
+      dependencies:
+        includeOllamaAPISecret:
+          allOf:
+            - if:
+                properties:
+                  includeOllamaAPISecret:
+                    const: true
+              then:
+                properties:
+                  ollamaApiSecretName:
+                    title: Ollama API Key Secret Name
+                    type: string
+                    ui:help: "The name of the secret that includes the ollama API key"
+                  ollamaApiSecretKey:
+                    title: Ollama API Key Secret Key
+                    type: string
+                    ui:help: "The key of the secret that includes the ollama API key"
+                required:
+                  - ollamaApiSecretName
+                  - ollamaApiSecretKey
     - title: Application Repository Information
       required:
         - hostType
@@ -247,9 +272,13 @@ spec:
           defaultBranch: main
           appContainer: ${{ 'quay.io/redhat-ai-dev/ai-template-bootstrap-app:latest' if parameters.hostType === 'GitHub' else 'quay.io/redhat-ai-dev/chatbot:latest' }}
           appPort: 8501
-          modelEndpoint: ${{ parameters.modelEndpoint }}
+          ollamaHostname: ${{ parameters.ollamaHostname }}
+          includeOllamaAPISecret: ${{ parameters.includeOllamaAPISecret }}
+          ollamaApiSecretName: ${{ parameters.ollamaApiSecretName }}
+          ollamaApiSecretKey: ${{ parameters.ollamaApiSecretKey }}
           rhoaiSelected: ${{ parameters.rhoaiSelected }}
-          supportApp: true
+          supportApp: false
+          llamaStackServerOnly: true
           imageRegistry: ${{ parameters.imageRegistry }}
           imageOrg: ${{ parameters.imageOrg }}
           imageName: ${{ parameters.imageName }}

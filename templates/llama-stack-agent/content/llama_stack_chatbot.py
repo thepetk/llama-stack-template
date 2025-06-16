@@ -1,11 +1,4 @@
 #!/usr/bin/env python3
-"""
-Llama Stack Tool Manager
-- Chat with llama-stack
-- View available tools
-- Register new tools
-"""
-
 import streamlit as st
 import os
 from llama_stack_client import LlamaStackClient, Agent

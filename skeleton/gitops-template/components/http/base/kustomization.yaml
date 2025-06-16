@@ -8,10 +8,16 @@ commonLabels:
   app.kubernetes.io/part-of: ${{ values.name }}
 resources:
   - initialize-namespace/
+  {%- if not values.llamaStackServerOnly %}
   - deployment.yaml
   - route.yaml
-  - service.yaml
   - model-config.yaml
+  {%- else %}
+  - llama-stack-deployment.yaml
+  - pvc.yaml
+  - llama-stack-run.yaml
+  {%- endif %}
+  - service.yaml
   {%- if values.rhoaiSelected %}
   - rhoai/
   {%- endif %}
