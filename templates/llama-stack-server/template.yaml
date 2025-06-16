@@ -2,9 +2,9 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: llama-stack-agent
-  title: Llama-Stack Agent Application
-  description: An example agent using llama-stack and providing the option to create and use new tools
+  name: llama-stack-server
+  title: Llama-Stack Server Template
+  description: An deployment of llama-stack service
   tags: ["ai", "llama-stack", "python"]
   annotations:
     backstage.io/techdocs-ref: dir:.
