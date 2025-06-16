@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: ${{ values.name }}-model-config
 data:
-  MODEL_SERVICE_URL: "${{ values.modelEndpoint }}"
+  MODEL_SERVICE_URL: "${{ values.llamaStackServiceUrl }}"
